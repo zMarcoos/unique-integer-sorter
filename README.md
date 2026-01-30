@@ -1,59 +1,43 @@
-## Trabalho 3 de Laboratório
-![Badge concluído](http://img.shields.io/static/v1?label=STATUS&message=CONCLUÍDO&color=GREEN&style=for-the-badge)
+# Bit-Vector Integer Sorter (Memory-Constrained)
 
-<h1 align="center">🗄️ Vetor de Bits</h1>
+Implementação de alta performance em linguagem C para ordenação e filtragem de duplicatas de inteiros no intervalo [0, 5000]. O sistema utiliza um **Bitmap** para otimização extrema de memória e processamento linear.
 
-<p style="font-size: 14px">
-    Funções principais do código:
-    <ul>
-        <li>Armazenar inteiros de 0 a 5000 em um vetor de inteiros</li>
-        <li>Economia de memória</li>
-        <li>Ver na prática o poder das funções bitwise</li>
-    </ul>
-</p>
+## 🧠 Arquitetura Técnica
+Diferente de implementações convencionais que utilizam vetores de inteiros (4 bytes por elemento), este sistema opera diretamente em nível de bit:
+* **Eficiência de Memória**: Redução da pegada de memória em 32x ao mapear cada inteiro para um bit individual dentro de um bloco de 32 bits.
+* **Complexidade Algorítmica**: Ordenação alcançada em tempo linear $O(n)$ através de uma única passagem pelo bitmap, eliminando a necessidade de algoritmos baseados em comparação ($O(n \log n)$).
+* **Restrições de Baixo Nível**: Desenvolvimento executado sob proibição estrita de declaração de variáveis locais, focando exclusivamente em aritmética de ponteiros e lógica bitwise pura.
 
-<hr>
-<h1 style="font-size: 24px">Passo a passo para executar:</h1>
-<h2>Pré-requisitos:</h2>
+## 🛠 Especificações de Implementação
+A lógica baseia-se em operações bitwise fundamentais para manipulação de endereçamento:
+* **Cálculo de Endereço**: `i >> 5` (equivalente a `i / 32`) para localização do bloco de memória.
+* **Mapeamento de Bit**: `1 << (i & 31)` (equivalente a `i % 32`) para isolar o bit correspondente ao valor.
+* **Operadores**: Utilização de `OR` inclusivo para persistência de dados e `AND` para verificação de estado.
 
-- <p>GCC</p>
+## 🚀 Toolchain (Build e Execução)
 
-<hr>
-<h2>🗃️ Como baixar?</h2>
-<p>Para baixar, é necessário rodar o programa para baixar os arquivos necessários. Para fazer isso, digite:</p>
+O processo de compilação utiliza o GCC e foca na biblioteca padrão do C, garantindo portabilidade em ambientes POSIX.
 
-<code>
-<span style="color: tomato">»</span> git clone https://github.com/zMarcoos/TR10_536281.git
-</code>
-<br>
+### Compilação
+```bash
+gcc TR3_536281.c -o bit_sorter
+```
 
-<hr>
+### Execução (Linux/macOS)
+```bash
+./bit_sorter
+```
 
-<h2>💿 Geração do Arquivo</h2>
-<p>Para gerar o arquivo executável, vá ao terminal e digite:</p>
+### Execução (Windows)
+```bash
+.\bit_sorter.exe
+```
 
+## 📊 Análise de Recursos
 
-<code>
-<span style="color: tomato">»</span>gcc TR3_536281.c -o TR3_536281
-</code>
-
-<br>
-
-<p>Explicação:
-
-<li><span style="font-weight: bold; color: tomato">TR3_536281.c</span> é a parte principal do código, na qual o código será executado.</li>
-<li><span style="font-weight: bold; color: tomato">-o</span> é uma flag utilizada para nomeação de arquivos.</li>
-<li><span style="font-weight: bold; color: tomato">TR3_536281</span> é a nomeação do arquivo executável resultante.</li>
-</p>
-
-<hr>
-<h2>💻 Execução</h2>
-<p>Para executar o programa, vá ao seu terminal e digite:</p>
-🐧 Linux: <br>
-<code>
-<span style="color: tomato">»</span>./TR3_536281</code>
-
-🪟 Windows: <br>
-<code>
-<span style="color: tomato">»</span>./TR3_536281.exe 
-</code>
+| Atributo | Implementação Convencional | Bit-Vector Core |
+| :--- | :--- | :--- |
+| **Pegada de Memória** | ~20,000 Bytes (Int Array) | ~625 Bytes (Bitset) |
+| **Complexidade de Tempo** | $O(n \log n)$ (Comparativo) | $O(n)$ (Acesso Direto) |
+| **Eficiência de Cache** | Baixa (Espalhamento de Dados) | Altamente Otimizada (Localidade) |
+| **Paradigma** | Abstração de Alto Nível | Engenharia de Sistemas (Low-Level) |
