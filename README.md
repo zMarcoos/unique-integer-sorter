@@ -5,7 +5,7 @@ Implementação de alta performance em linguagem C para ordenação e filtragem 
 ## 🧠 Arquitetura Técnica
 Diferente de implementações convencionais que utilizam vetores de inteiros (4 bytes por elemento), este sistema opera diretamente em nível de bit:
 * **Eficiência de Memória**: Redução da pegada de memória em 32x ao mapear cada inteiro para um bit individual dentro de um bloco de 32 bits.
-* **Complexidade Algorítmica**: Ordenação alcançada em tempo linear $O(n)$ através de uma única passagem pelo bitmap, eliminando a necessidade de algoritmos baseados em comparação ($O(n \log n)$).
+* **Complexidade Algorítmica**: Ordenação alcançada em tempo linear $O(n)$ através de uma única passagem pelo bitmap, eliminando a necessidade de algoritmos baseados em comparação (O(n log n)).
 * **Restrições de Baixo Nível**: Desenvolvimento executado sob proibição estrita de declaração de variáveis locais, focando exclusivamente em aritmética de ponteiros e lógica bitwise pura.
 
 ## 🛠 Especificações de Implementação
